@@ -14,7 +14,7 @@
             prepend-icon="mdi-email"
             color="primary"
             class="mb-4"
-            v-model="email"
+      
             outlined
           ></v-text-field>
 
@@ -24,7 +24,7 @@
             type="password"
             color="primary"
             class="mb-4"
-            v-model="password"
+         
             outlined
           ></v-text-field>
 
@@ -32,7 +32,7 @@
             label="Remember me"
             color="primary"
             class="mb-4"
-            v-model="rememberMe"
+        
           ></v-checkbox>
 
           <v-btn
@@ -40,7 +40,7 @@
             elevation="2"
             block
             class="mb-6"
-            @click="signIn"
+     
           >
             Sign In
           </v-btn>
@@ -54,7 +54,7 @@
               color="red darken-1"
               class="ma-2"
               elevation="2"
-              @click="signInWithGoogle"
+              @click="signInWithGoogle()"
             >
               <v-icon left>mdi-google</v-icon>
               Google
@@ -67,30 +67,15 @@
 </template>
 
 <script>
-import { auth, provider, signInWithPopup } from '~/plugins/firebase'
+//import { auth, provider, signInWithPopup } from '~/plugins/firebase'
 
 export default {
   layout: 'auth',
-  data() {
-    return {
-      email: '',
-      password: '',
-      rememberMe: false,
-    }
-  },
+  middleware: 'guest',
   methods: {
-    signIn() {
-      console.log('Email:', this.email, 'Password:', this.password, 'Remember me:', this.rememberMe)
-    },
-    async signInWithGoogle() {
-      try {
-        const result = await signInWithPopup(auth, provider)
-        const user = result.user
-        console.log('✅ Google user:', user)
-        this.$router.push('/dashboard')
-      } catch (error) {
-        console.error('❌ Google sign-in failed:', error.message)
-      }
+    signInWithGoogle() {
+      //this.$auth.loginWith('google')
+      this.$auth.loginWith('google')
     }
   }
 }

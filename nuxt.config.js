@@ -22,13 +22,47 @@ export default {
     'vuetify/dist/vuetify.min.css'
   ],
 
-  plugins: ['~/plugins/firebase.js'],
+  //plugins: ['~/plugins/firebase.js'],
 
   components: true,
 
   buildModules: [
     '@nuxtjs/vuetify',
   ],
+
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
+  ],
+
+  auth: {
+    redirect: {
+      login:'/auth/signin', //redirect when user is connected
+      logout:'/auth/signin', //redirect when user is logoout
+      callback:'/auth/callback', //callback url after login
+      home:'/' //after login redirect
+    },
+    autoFetchUser:false,
+    strategies: {
+      google: {
+        clientId: '56538036089-h4r1dp4k4iamu2u3dsaoqacptdd92bvv.apps.googleusercontent.com',
+        scheme: 'oauth2',
+        endpoints:{
+          authorization: "https://accounts.google.com/o/oauth2/auth",
+          userInfo: "https://www.googleapis.com/oauth2/v3/userinfo",   
+        },
+        token: {
+          property:"access id_token ",
+          type: "Bearer",
+          maxAge: 1800,
+        },
+        responseType: "token id_token ",
+        scope: ["openid","profile", "email"],
+        redirectUri: "http://localhost:3000/auth/callback",
+        codeChallengeMethod: "",
+      },
+    },
+  },
 
   vuetify: {
     theme: {
