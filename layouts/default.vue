@@ -105,10 +105,12 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Sign In',
-          to: '/auth/signin'
+          icon: 'mdi-bar',
+          title: 'Scanner',
+          to: '/QrScanner'
         }
+
+        
       ],
       miniVariant: false,
       right: true,

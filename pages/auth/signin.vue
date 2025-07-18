@@ -1,103 +1,68 @@
 <template>
-  <div class="login-container">
-    <div class="d-flex justify-center align-center" style="height: 100vh;">
-      <v-card
-        class="login-card"
-        elevation="12"
-        color="#1e1e1e"
+  <div class="d-flex justify-center align-center" style="height: 100vh;">
+    <v-card
+      class="mx-auto pa-14 pb-8"
+      elevation="10"
+      max-width="500"
+      width="100%"
+      rounded="lg"
+    >
+      <v-text-field
+        density="compact"
+        placeholder="Email address"
+        prepend-inner-icon="mdi-email-outline"
+        variant="outlined"
+      />
+
+      <v-text-field
+        :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+        :type="visible ? 'text' : 'password'"
+        density="compact"
+        placeholder="Enter your password"
+        prepend-inner-icon="mdi-lock-outline"
+        variant="outlined"
+        @click:append-inner="togglePassword"
+      />
+
+      <v-btn
+        class="mb-4 mt-6"
+        color="blue"
+        size="large"
+        variant="tonal"
+        block
       >
-        <v-card-text>
-          <h1 class="text-h4 text-center mb-6" style="color: white;">Login</h1>
+        Log In
+      </v-btn>
 
-          <v-text-field
-            label="Email"
-            prepend-icon="mdi-email"
-            color="primary"
-            class="mb-4"
+      <v-btn
+        class="mb-2"
+        color="blue"
+        size="large"
+        variant="tonal"
+        block
+        @click="signInWithGoogle()"
+      >
       
-            outlined
-          ></v-text-field>
-
-          <v-text-field
-            label="Password"
-            prepend-icon="mdi-lock"
-            type="password"
-            color="primary"
-            class="mb-4"
-         
-            outlined
-          ></v-text-field>
-
-          <v-checkbox
-            label="Remember me"
-            color="primary"
-            class="mb-4"
-        
-          ></v-checkbox>
-
-          <v-btn
-            color="primary"
-            elevation="2"
-            block
-            class="mb-6"
-     
-          >
-            Sign In
-          </v-btn>
-
-          <div class="text-center mb-4">
-            <p style="color: white;">or</p>
-          </div>
-
-          <div class="google-btn-wrapper">
-            <v-btn
-              color="red darken-1"
-              class="ma-2"
-              elevation="2"
-              @click="signInWithGoogle()"
-            >
-              <v-icon left>mdi-google</v-icon>
-              Google
-            </v-btn>
-          </div>
-        </v-card-text>
-      </v-card>
-    </div>
+        Sign in with Google
+      </v-btn>
+    </v-card>
   </div>
 </template>
 
-<script>
-//import { auth, provider, signInWithPopup } from '~/plugins/firebase'
 
+
+<script>
 export default {
-  layout: 'auth',
+  layout: "auth",
   middleware: 'guest',
   methods: {
+    togglePassword() {
+      this.visible = !this.visible
+    },
     signInWithGoogle() {
-      //this.$auth.loginWith('google')
       this.$auth.loginWith('google')
+      this.$auth.loginWith('google', { params: { prompt: 'select_account' } })
     }
   }
 }
 </script>
-
-<style scoped>
-.login-container {
-  background-color: #524f4f;
-
-}
-
-.login-card {
-  width: 100%;
-  max-width: 500px;
-  padding: 32px 24px;
-  position: relative;
-  border-radius: 16px;
-}
-
-.google-btn-wrapper {
-  display: flex;
-  justify-content: center;
-}
-</style>
-

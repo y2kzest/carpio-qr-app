@@ -4,11 +4,9 @@ export default {
   ssr: false,
 
   head: {
-    titleTemplate: '%s - bsit3a-systeminteg',
-    title: 'bsit3a-systeminteg',
-    htmlAttrs: {
-      lang: 'en'
-    },
+    titleTemplate: '%s - Aaron',
+    title: 'System Integration',
+    htmlAttrs: { lang: 'en' },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -18,11 +16,11 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
-  css: [
-    'vuetify/dist/vuetify.min.css'
-  ],
+  css: [],
 
-  //plugins: ['~/plugins/firebase.js'],
+  plugins: [
+    '~/plugins/html5qrcode.client.js'
+  ],
 
   components: true,
 
@@ -35,36 +33,45 @@ export default {
     '@nuxtjs/auth-next'
   ],
 
+  axios: {
+    baseURL: 'http://localhost:8000', // Your backend API base URL
+    credentials: true
+  },
+
   auth: {
+    //options
     redirect: {
-      login:'/auth/signin', //redirect when user is connected
-      logout:'/auth/signin', //redirect when user is logoout
-      callback:'/auth/callback', //callback url after login
-      home:'/' //after login redirect
+      login: '/auth/signin',
+      logout: '/auth/signin',
+      callback: '/auth/callback',
+      home: '/'
     },
-    autoFetchUser:false,
+    autoFetchUser: false,
     strategies: {
       google: {
         clientId: '56538036089-h4r1dp4k4iamu2u3dsaoqacptdd92bvv.apps.googleusercontent.com',
         scheme: 'oauth2',
-        endpoints:{
-          authorization: "https://accounts.google.com/o/oauth2/auth",
-          userInfo: "https://www.googleapis.com/oauth2/v3/userinfo",   
+        endpoints: {
+          authorization: 'https://accounts.google.com/o/oauth2/auth',  
+          userInfo: 'https://www.googleapis.com/oauth2/v3/userinfo'   
         },
         token: {
-          property:"access id_token ",
+          property: "access_token",
           type: "Bearer",
           maxAge: 1800,
         },
-        responseType: "token id_token ",
-        scope: ["openid","profile", "email"],
-        redirectUri: "http://localhost:3000/auth/callback",
-        codeChallengeMethod: "",
-      },
-    },
+        responseType: "token id_token",
+        scope: ["openid","profile","email"],
+        redirectUri: 'http://localhost:3000/auth/callback', // Must match your Google Cloud redirect URI
+        codeChallengeMethod: '', // Or 'S256' if supported by your backend
+      }
+    }
   },
 
+
+
   vuetify: {
+    customVariables: ['~/assets/variables.scss'],
     theme: {
       dark: true,
       themes: {
