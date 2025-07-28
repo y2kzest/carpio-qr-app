@@ -34,7 +34,7 @@ export default {
   ],
 
   axios: {
-    baseURL: 'http://localhost:8000', // Your backend API base URL
+    baseURL: 'http://localhost:3000', 
     credentials: true
   },
 
@@ -62,8 +62,8 @@ export default {
         },
         responseType: "token id_token",
         scope: ["openid","profile","email"],
-        redirectUri: process.env.REDIRECT_URI, // Must match your Google Cloud redirect URI
-        codeChallengeMethod: '', // Or 'S256' if supported by your backend
+        redirectUri: process.env.REDIRECT_URI, 
+        codeChallengeMethod: '', 
       }
     }
   },
