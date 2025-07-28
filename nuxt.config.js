@@ -33,10 +33,6 @@ export default {
     '@nuxtjs/auth-next'
   ],
 
-  axios: {
-    baseURL: 'http://localhost:8000', 
-    credentials: true
-  },
 
   auth: {
     //options
