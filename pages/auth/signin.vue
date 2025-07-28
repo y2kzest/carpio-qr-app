@@ -56,13 +56,10 @@ export default {
   layout: "auth",
   middleware: 'guest',
   methods: {
-    togglePassword() {
-      this.visible = !this.visible
-    },
-    signInWithGoogle() {
-      this.$auth.loginWith('google')
-      this.$auth.loginWith('google', { params: { prompt: 'select_account' } })
-    }
+   signInWithGoogle(){
+    this.$auth.loginWith('google')
+    console.log("Signin with google")
+   }
   }
 }
 </script>
